@@ -13,3 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }))
 })
 
+function login() {
+    const userName = document.getElementById('username').value
+    const pwd = document.getElementById('pwd').value
+
+    let users = JSON.parse(localStorage.getItem('users')) || {}
+    let user = users[userName]
+
+    if (!user || user.pwd !== pwd) {
+        alert('Invalid login credentials')
+    } else {
+        alert('Login Successful')
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('login').addEventListener('click', login)
+})
