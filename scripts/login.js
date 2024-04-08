@@ -24,6 +24,7 @@ function login() {
         alert('Invalid login credentials')
     } else {
         alert('Login Successful')
+        window.location.href = 'dashboard.html'
     }
 }
 
