@@ -71,33 +71,45 @@ document.addEventListener('click', function(e) {
             localStorage.setItem('userTasks', JSON.stringify(taskList))
             renderListData()
         }
+    } else if (e.target && e.target.className === 'editTask') {
+        e.preventDefault()
+        const taskIndex = e.target.getAttribute('data-key')
+        loadTaskForEditing(taskIndex)
     }
 })
 
-document.querySelector('form#task-form').addEventListener('submit', function(event) {
+function loadTaskForEditing(index) {
+    const tasks = JSON.parse(localStorage.getItem('userTasks')) || [];
+    if (tasks[index]) {
+        const task = tasks[index];
+        const taskNameInput = document.querySelector('#name-inputs');
+        const taskDesInput = document.querySelector('#des-inputs');
+        taskNameInput.value = task.taskName;
+        taskDesInput.value = task.taskDescription;
 
+        localStorage.setItem('editingIndex', index);
+    }
+}
+
+document.querySelector('form#task-form').addEventListener('submit', function(event) {
     event.preventDefault()
+    const editingIndex = localStorage.getItem('editingIndex')
+    let tasklist = JSON.parse(localStorage.getItem('userTasks')) || []
     let taskName = document.querySelector('#name-inputs')
     let taskDes = document.querySelector('#des-inputs')
 
-    let newTask = {'taskName': taskName.value, 'taskDescription': taskDes.value}
-
-    let tasklist
-
-    if (localStorage.getItem('userTasks') == null) {
-        tasklist = []
+    if (editingIndex !== null) {
+        tasklist[editingIndex] = { 'taskName': taskName.value, 'taskDescription': taskDes.value }
+        localStorage.removeItem('editingIndex')
     } else {
-        tasklist = JSON.parse(localStorage.getItem('userTasks'))
+        let newTask = { 'taskName': taskName.value, 'taskDescription': taskDes.value }
+        tasklist.push(newTask)
     }
 
-    tasklist.push(newTask)
     localStorage.setItem('userTasks', JSON.stringify(tasklist))
-
     taskName.value = ""
     taskDes.value = ""
-
     renderListData()
-
 })
 
 function renderListData() {
@@ -108,7 +120,8 @@ function renderListData() {
     taskULEL.innerHTML = ''
     tasks.forEach(function(task, index) {
         taskULEL.innerHTML += '<li data-key="'+ index +'"><h2> Task Name: '+ task.taskName +
-        '</h2>Task Description: <p>' + task.taskDescription + '</p> <a class="removeTask" href="#" data-key="' +
+        '</h2>Task Description: <p>' + task.taskDescription + '</p> <a class="editTask" href="#" data-key="' +
+        index +'">Edit</a> <p></p><a class="removeTask" href="#" data-key="' +
         index +'">Remove</a> </li>'
     })
 }
