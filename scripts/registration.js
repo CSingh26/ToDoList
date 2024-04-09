@@ -71,7 +71,13 @@ function register() {
         alert('Username already exists');
     } else {
         let users = JSON.parse(localStorage.getItem('users')) || {}
-        users[username] = {pwd: pwd1};
+        users[username] = {
+            pwd: pwd1,
+            gender: gender,
+            dob: dob,
+            emailID: email,
+            na: na
+        };
         localStorage.setItem('users', JSON.stringify(users))
         alert('Registration successful')
         window.location.href = 'login.html'

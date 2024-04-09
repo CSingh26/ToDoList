@@ -11,6 +11,7 @@ body {
     background-color: black;
 }
 
+
 li {
     list-style: none;
 }
@@ -139,40 +140,28 @@ li {
     align-items: center;
     margin-top: 100px;
     width: auto;
-    font-family: "Wix Madefor Display", serif;
-    color: #ff5500;
-    padding: 15px;
-    font-size: 25px;
+    background-color: black;
 }
 
-.signup-form {
+.reset-pwd {
     display: flex;
-    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: aqua;
+    padding: 20px;
+    border: 1px solid white;
 }
 
-.gif-area {
-    padding-right: 15px;
-    display: flex;
+.new-passwd {
+    padding-bottom: 15px;
 }
 
-.gif-area img {
-    width: 550px;
-}
-
-.form-area {
-    padding-left: 15px;
-    display: flex;
-}
-
-.username {
+.form-labels {
     padding-bottom: 10px;
 }
 
-.form-label {
-    padding-bottom: 5px;
-}
-
-.form-input input {
+.form-inputs input {
     text-align: center;
     width: 300px;
     height: 27px;
@@ -180,38 +169,7 @@ li {
     border-radius: 12px;
 }
 
-#gender-in {
-    width: 300px;
-    height: 27px;
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 12px;
-}
-
-.name {
-    padding-bottom: 10px;
-}
-
-.email {
-    padding-bottom: 10px;
-}
-
-.gender {
-    padding-bottom: 10px;
-}
-
-.dob {
-    padding-bottom: 10px;
-}
-
-.pwd {
-    padding-bottom: 10px;
-}
-
-.submit {
-    padding-top: 10px;
-}
-
-#signup {
+.change-button button {
     width: 300px;
     height: 40px;
     border: 1px solid rgba(0, 0, 0, 0);
@@ -220,9 +178,10 @@ li {
     background-color: #fe9661;
     font-weight: 700;
     transition: 0.4s ease-in;
+    margin-top: 13px;
 }
 
-#signup:hover {
+.change-button button:hover {
     background-color: #ff5500;
     color: white;
     scale: 1.05;

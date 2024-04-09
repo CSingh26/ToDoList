@@ -12,4 +12,3 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.remove("active")
     }))
 })
-

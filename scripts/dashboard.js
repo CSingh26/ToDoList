@@ -14,17 +14,17 @@ async function weather() {
 
     if (data.weather[0].main == 'Clouds') {
         weatherIcon.src = 'assets/clouds.png';
-    } else if(data.weather[0].main == 'Scattered Clouds') {
+    } else if (data.weather[0].main == 'Scattered Clouds') {
         weatherIcon.src = 'assets/clouds.png';
-    } else if(data.weather[0].main == 'Clear') {
+    } else if (data.weather[0].main == 'Clear') {
         weatherIcon.src = 'assets/clear.png';
-    } else if(data.weather[0].main == 'Drizzle') {
+    } else if (data.weather[0].main == 'Drizzle') {
         weatherIcon.src = 'assets/drizzle.png';
-    } else if(data.weather[0].main == 'Rain') {
+    } else if (data.weather[0].main == 'Rain') {
         weatherIcon.src = 'assets/drizzle.png';
-    } else if(data.weather[0].main == 'Snow') {
+    } else if (data.weather[0].main == 'Snow') {
         weatherIcon.src = 'assets/snow.png';
-    } else if(data.weather[0].main == 'Mist') {
+    } else if (data.weather[0].main == 'Mist') {
         weatherIcon.src = 'assets/snow.png';
     }
 
@@ -45,7 +45,7 @@ async function gifs() {
 
     try {
         const response = await fetch(url)
-        if(!response.ok) {
+        if (!response.ok) {
             alert('API endpoint broken')
         }
         const data = await response.json()
@@ -59,8 +59,8 @@ async function gifs() {
     }
 }
 
-document.addEventListener('click', function(e) {
-    if(e.target && e.target.className == 'removeTask') {
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.className == 'removeTask') {
         let removeTaskBtn = e.target
         if (removeTaskBtn) {
             e.preventDefault()
@@ -91,7 +91,7 @@ function loadTaskForEditing(index) {
     }
 }
 
-document.querySelector('form#task-form').addEventListener('submit', function(event) {
+document.querySelector('form#task-form').addEventListener('submit', function (event) {
     event.preventDefault()
     const editingIndex = localStorage.getItem('editingIndex')
     let tasklist = JSON.parse(localStorage.getItem('userTasks')) || []
@@ -99,10 +99,16 @@ document.querySelector('form#task-form').addEventListener('submit', function(eve
     let taskDes = document.querySelector('#des-inputs')
 
     if (editingIndex !== null) {
-        tasklist[editingIndex] = { 'taskName': taskName.value, 'taskDescription': taskDes.value }
+        tasklist[editingIndex] = {
+            'taskName': taskName.value,
+            'taskDescription': taskDes.value
+        }
         localStorage.removeItem('editingIndex')
     } else {
-        let newTask = { 'taskName': taskName.value, 'taskDescription': taskDes.value }
+        let newTask = {
+            'taskName': taskName.value,
+            'taskDescription': taskDes.value
+        }
         tasklist.push(newTask)
     }
 
@@ -118,13 +124,23 @@ function renderListData() {
 
     const taskULEL = document.querySelector('#taskList')
     taskULEL.innerHTML = ''
-    tasks.forEach(function(task, index) {
-        taskULEL.innerHTML += '<li data-key="'+ index +'"><h2> Task Name: '+ task.taskName +
-        '</h2>Task Description: <p>' + task.taskDescription + '</p> <a class="editTask" href="#" data-key="' +
-        index +'">Edit</a> <p></p><a class="removeTask" href="#" data-key="' +
-        index +'">Remove</a> </li>'
+    tasks.forEach(function (task, index) {
+        taskULEL.innerHTML += '<li data-key="' + index + '"><h2> Task Name: ' + task.taskName +
+            '</h2>Task Description: <p>' + task.taskDescription + '</p> <a class="editTask" href="#" data-key="' +
+            index + '">Edit</a> <p></p><a class="removeTask" href="#" data-key="' +
+            index + '">Remove</a> </li>'
     })
 }
+
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.className.includes('logout')) {
+        e.preventDefault()
+        localStorage.removeItem('currentUser')
+        localStorage.removeItem('userTasks')
+        alert('User logged out')
+        window.location.href = 'index.html'
+    }
+})
 
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.ham-menu')
@@ -141,9 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }))
 
     weather()
-    // gifs()
-
-    // setInterval(gifs, 120000)
+    gifs()
+    setInterval(gifs, 120000)
     renderListData()
 
 })

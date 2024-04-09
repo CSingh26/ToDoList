@@ -23,6 +23,7 @@ function login() {
     if (!user || user.pwd !== pwd) {
         alert('Invalid login credentials')
     } else {
+        localStorage.setItem('currentUser', userName)
         alert('Login Successful')
         window.location.href = 'dashboard.html'
     }
