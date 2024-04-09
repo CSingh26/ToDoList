@@ -53,8 +53,45 @@
             
             </div>
         </div>
-        <div class="task-field">
-
+        <div class="task-area">
+            <div class="task-field">
+                <h1 class="task-heading">Add tasks</h1>
+                <div class="task-form">
+                    <form id="task-form">
+                        <div class="task-name">
+                            <div class="form-label" id="name-label">
+                                <label class="task-name">Task Name</label>
+                            </div>
+                            <div class="form-inputs" id="name-input">
+                                <input 
+                                type="text"
+                                id="name-inputs"
+                                placeholder="Enter Task Name"
+                                >
+                            </div>
+                        </div>
+                        <div class="task-des">
+                            <div class="form-label" id="des-label">
+                                <label class="task-des">Task Description</label>
+                            </div>
+                            <div class="form-inputs" id="des-input">
+                                <input 
+                                type="text"
+                                id="des-inputs"
+                                placeholder="Enter Task Description"
+                                >
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <button id="submit-button" type="submit">Add Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="task">
+                <ul id="taskList" class="task-list-items">
+                </ul>
+            </div>
         </div>
     </div>
     <script src="/scripts/dashboard.js"></script>

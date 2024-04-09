@@ -13,19 +13,19 @@ async function weather() {
     document.querySelector('.wind').innerHTML = Math.round(data.wind.speed) + ` km/h`
 
     if (data.weather[0].main == 'Clouds') {
-        weatherIcon.src = 'assets/images/clouds.png';
+        weatherIcon.src = 'assets/clouds.png';
     } else if(data.weather[0].main == 'Scattered Clouds') {
-        weatherIcon.src = 'assets/images/clouds.png';
+        weatherIcon.src = 'assets/clouds.png';
     } else if(data.weather[0].main == 'Clear') {
-        weatherIcon.src = 'assets/images/clear.png';
+        weatherIcon.src = 'assets/clear.png';
     } else if(data.weather[0].main == 'Drizzle') {
-        weatherIcon.src = 'assets/images/drizzle.png';
+        weatherIcon.src = 'assets/drizzle.png';
     } else if(data.weather[0].main == 'Rain') {
-        weatherIcon.src = 'assets/images/drizzle.png';
+        weatherIcon.src = 'assets/drizzle.png';
     } else if(data.weather[0].main == 'Snow') {
-        weatherIcon.src = 'assets/images/snow.png';
+        weatherIcon.src = 'assets/snow.png';
     } else if(data.weather[0].main == 'Mist') {
-        weatherIcon.src = 'assets/images/snow.png';
+        weatherIcon.src = 'assets/snow.png';
     }
 
 }
@@ -59,6 +59,60 @@ async function gifs() {
     }
 }
 
+document.addEventListener('click', function(e) {
+    if(e.target && e.target.className == 'removeTask') {
+        let removeTaskBtn = e.target
+        if (removeTaskBtn) {
+            e.preventDefault()
+            let removeIndex = e.target.getAttribute('data-key')
+            let taskList = JSON.parse(localStorage.getItem('userTasks'))
+            let removeTaskList = taskList.splice(removeIndex, 1)
+
+            localStorage.setItem('userTasks', JSON.stringify(taskList))
+            renderListData()
+        }
+    }
+})
+
+document.querySelector('form#task-form').addEventListener('submit', function(event) {
+
+    event.preventDefault()
+    let taskName = document.querySelector('#name-inputs')
+    let taskDes = document.querySelector('#des-inputs')
+
+    let newTask = {'taskName': taskName.value, 'taskDescription': taskDes.value}
+
+    let tasklist
+
+    if (localStorage.getItem('userTasks') == null) {
+        tasklist = []
+    } else {
+        tasklist = JSON.parse(localStorage.getItem('userTasks'))
+    }
+
+    tasklist.push(newTask)
+    localStorage.setItem('userTasks', JSON.stringify(tasklist))
+
+    taskName.value = ""
+    taskDes.value = ""
+
+    renderListData()
+
+})
+
+function renderListData() {
+    const tasks = JSON.parse(localStorage.getItem('userTasks'))
+    let taskList = ''
+
+    const taskULEL = document.querySelector('#taskList')
+    taskULEL.innerHTML = ''
+    tasks.forEach(function(task, index) {
+        taskULEL.innerHTML += '<li data-key="'+ index +'"><h2> Task Name: '+ task.taskName +
+        '</h2>Task Description: <p>' + task.taskDescription + '</p> <a class="removeTask" href="#" data-key="' +
+        index +'">Remove</a> </li>'
+    })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.ham-menu')
     const navMenu = document.querySelector('.nav-menu')
@@ -74,8 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }))
 
     weather()
-    gifs()
+    // gifs()
 
-    setInterval(gifs, 120000)
+    // setInterval(gifs, 120000)
+    renderListData()
 
 })
